@@ -43,7 +43,7 @@ def post_webhook():
                         #reply_with_generic_template(sender_id, [element])
                         game(sender_id)
 
-                        do_rules(sender_id, message_text)
+                        #do_rules(sender_id, message_text)
 
     return "ok", 200
 

@@ -5,12 +5,12 @@ import requests
 
 app = Flask(__name__)
 
-access_token = 'EAAXk6GLIlXcBAHRnz32wf1En9dwNyFBM89KBo6AK38OnMoEmNEGCuNQoGeK4bdl1H5Nq0EA63N95Q7WXjZBoInvkwrGEfDATG9dOZB9Lr2tuHtJbKwGzEppZCus3QWEntls7UZClT7jZC32XGYzl74HQrQubfeJGm6DMhyxqUnAZDZD'
+access_token = 'EAAZALe3ScA2UBAKjOy5jFxJlmeYrj6ZCGU0Mvm2Q4xMbWSNN7hOZAqZByC6ZBIocowPaBwcMRsxI7e1HqkkNtayg7VtAmUdsvZARhW5sY0bry6pZATWEui4ZBSHVXpmaqGN6cotZC0TZCVhZAXuo6WE8N03J1YSy4COEkdPaMJu6PajtgZDZD'
 
 
 @app.route("/", methods=["GET"])
 def root():
-    return "Hello World!"
+    return "Hello World! + Token"
 
 
 # webhook for facebook to initialize the bot

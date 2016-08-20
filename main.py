@@ -41,13 +41,15 @@ def post_webhook():
                         #image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
                         #element = create_generic_template_element("Hello", image, message_text)
                         #reply_with_generic_template(sender_id, [element])
+                        game()
 
                         do_rules(sender_id, message_text)
 
     return "ok", 200
 
 
-#####################################Rock paper scissors#############################################chand = ""
+#####################################Rock paper scissors#############################################
+chand = ""
 rnumber =randint(0,8)
 
 def define():
@@ -64,34 +66,34 @@ def define():
 def game():
 	while True:
 		define()
-		print "Which hand do you want to play- Rock, Paper, Scissors, Lizard, Spock"
+		reply_with_text(recipient_id, "Which hand do you want to play- Rock, Paper, Scissors, Lizard, Spock")
 		input = raw_input()
 		if input == chand:
-			print "You both had %s" % (input)
+			reply_with_text(recipient_id,  "You both had %s" % (input))
 		elif input != "Scissors" and input != "Paper" and input != "Rock":
-			print "How you gonna beat %s with \"%s\"" % (chand, input)
-			print "Try again:"
+			reply_with_text(recipient_id,  "How you gonna beat %s with \"%s\"" % (chand, input))
+			reply_with_text(recipient_id,  "Try again:")
 		else:
 			if chand == "Scissors" and input == "Rock":
-				print "Rock crushes Scissors!"
-				print "You win"
+				reply_with_text(recipient_id,  "Rock crushes Scissors!")
+				reply_with_text(recipient_id,  "You win")
 			elif chand == "Scissors" and input == "Paper":
-				print "Scissors cut Paper!"
-				print "You lost"
+				reply_with_text(recipient_id,  "Scissors cut Paper!")
+				reply_with_text(recipient_id,  "You lost")
 			elif chand == "Rock" and input == "Paper":
-				print "Paper covers Rock!"
-				print "you win"
+				reply_with_text(recipient_id,  "Paper covers Rock!")
+				reply_with_text(recipient_id,  "you win")
 			elif chand == "Rock" and input == "Scissors":
-				print "Rock crushes Scissors!"
-				print "you lose"
+				reply_with_text(recipient_id,  "Rock crushes Scissors!")
+				reply_with_text(recipient_id,  "you lose")
 			elif chand == "Paper" and input == "Scissors":
-				print "Scissors cut Paper!"
-				print "You lose"
+				reply_with_text(recipient_id,  "Scissors cut Paper!")
+				reply_with_text(recipient_id,  "You lose")
 			elif chand == "Paper" and input == "Rock":
-				print "Paper covers Rock!"
-				print "You lose"
+				reply_with_text(recipient_id,  "Paper covers Rock!")
+				reply_with_text(recipient_id,  "You lose")
 			else:
-				print "Dont try to cheat please"
+				reply_with_text(recipient_id,  "Dont try to cheat please")
 
 game()
 #####################################Rock paper scissors#############################################

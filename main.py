@@ -42,8 +42,12 @@ def post_webhook():
                         #element = create_generic_template_element("Hello", image, message_text)
                         #reply_with_generic_template(sender_id, [element])
                         game(sender_id)
-
                         #do_rules(sender_id, message_text)
+
+                elif "postback" in messaging_event:
+                    print("postback was recognized")
+                    received_postback(messaging_event);
+
 
     return "ok", 200
 
@@ -98,6 +102,31 @@ def game(recipient_id):
 game()
 #####################################Rock paper scissors#############################################
 # helper functions
+
+def received_postback(event):
+    global index
+    sender_id = event['sender']['id']
+    payload = event['postback']['payload']
+    pp.pprint(payload)
+    """
+    print("received_postback achieved")
+    if 'ANSWER_' in payload:
+        pp.pprint('ANSWER_')
+        process_answer(sender_id, payload[payload.find('_') + 1:])
+    elif 'NEXT_QUOTE' in payload:
+        pp.pprint('NEXT_QUOTE')
+        send_quote(sender_id, QUOTES[index])
+        if(index < len(QUOTES)-1):
+            index += 1 # == index = index + 1
+        else:
+            index = 0
+    """
+    elif 'GETTING_STARTED' in payload:
+        pp.pprint('GETTING_STARTED')
+        reply_with_text_and_button(sender_id, "Willkommen bei Facts & Fiction zur Bundespräsidentenwahl 2016 - Runde 2 :) Mal sehen, wie viele Zitate du richtig erkennst!", "Zitat schicken", "NEXT_QUOTE")
+        #send_quote(sender_id, pick_quote())
+        # suggest_topics(sender_id)
+        # send_introduction
 
 def get_url(url):
     result = requests.get(url)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, urllib
 from flask import Flask, request, abort
+from random import randint
 import requests
 
 app = Flask(__name__)
@@ -37,15 +38,63 @@ def post_webhook():
 
                     if 'text' in messaging_event['message']:
                         message_text = messaging_event['message']['text']
-                        image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
-                        element = create_generic_template_element("Hello", image, message_text)
-                        reply_with_generic_template(sender_id, [element])
+                        #image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
+                        #element = create_generic_template_element("Hello", image, message_text)
+                        #reply_with_generic_template(sender_id, [element])
 
-                        #do_rules(sender_id, message_text)
+                        do_rules(sender_id, message_text)
 
     return "ok", 200
 
 
+#####################################Rock paper scissors#############################################chand = ""
+rnumber =randint(0,8)
+
+def define():
+	global chand
+	global rnumber
+	rnumber =randint(0,8)
+	if rnumber <3:
+		chand = "Rock"
+	elif rnumber >2 and rnumber <6:
+		chand = "Scissors"
+	else:
+		chand = "Paper"
+
+def game():
+	while True:
+		define()
+		print "Which hand do you want to play- Rock, Paper, Scissors, Lizard, Spock"
+		input = raw_input()
+		if input == chand:
+			print "You both had %s" % (input)
+		elif input != "Scissors" and input != "Paper" and input != "Rock":
+			print "How you gonna beat %s with \"%s\"" % (chand, input)
+			print "Try again:"
+		else:
+			if chand == "Scissors" and input == "Rock":
+				print "Rock crushes Scissors!"
+				print "You win"
+			elif chand == "Scissors" and input == "Paper":
+				print "Scissors cut Paper!"
+				print "You lost"
+			elif chand == "Rock" and input == "Paper":
+				print "Paper covers Rock!"
+				print "you win"
+			elif chand == "Rock" and input == "Scissors":
+				print "Rock crushes Scissors!"
+				print "you lose"
+			elif chand == "Paper" and input == "Scissors":
+				print "Scissors cut Paper!"
+				print "You lose"
+			elif chand == "Paper" and input == "Rock":
+				print "Paper covers Rock!"
+				print "You lose"
+			else:
+				print "Dont try to cheat please"
+
+game()
+#####################################Rock paper scissors#############################################
 # helper functions
 
 def get_url(url):

@@ -41,7 +41,7 @@ def post_webhook():
                         #image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
                         #element = create_generic_template_element("Hello", image, message_text)
                         #reply_with_generic_template(sender_id, [element])
-                        game()
+                        game(sender_id)
 
                         do_rules(sender_id, message_text)
 
@@ -63,7 +63,7 @@ def define():
 	else:
 		chand = "Paper"
 
-def game():
+def game(recipient_id):
 	while True:
 		define()
 		reply_with_text(recipient_id, "Which hand do you want to play- Rock, Paper, Scissors, Lizard, Spock")

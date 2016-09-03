@@ -1,7 +1,22 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @sugoidesune
+ Watch 5
+  Unstar 2
+  Fork 14 moccadroid/hello_bot
+ Code  Issues 1  Pull requests 0  Wiki  Pulse  Graphs
+Branch: heroku Find file Copy pathhello_bot/main.py
+5c9e2ae  25 days ago
+@allanberger allanberger refact(image-reply): update variable name
+2 contributors @allanberger @moccadroid
+RawBlameHistory     140 lines (97 sloc)  3.4 KB
 # -*- coding: utf-8 -*-
 import json, urllib
 from flask import Flask, request, abort
-from random import randint
 import requests
 
 app = Flask(__name__)
@@ -11,7 +26,7 @@ access_token = 'EAAZALe3ScA2UBAKjOy5jFxJlmeYrj6ZCGU0Mvm2Q4xMbWSNN7hOZAqZByC6ZBIo
 
 @app.route("/", methods=["GET"])
 def root():
-    return "Hello World! + Token"
+    return "Hello World!"
 
 
 # webhook for facebook to initialize the bot
@@ -38,95 +53,16 @@ def post_webhook():
 
                     if 'text' in messaging_event['message']:
                         message_text = messaging_event['message']['text']
-                        #image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
-                        #element = create_generic_template_element("Hello", image, message_text)
-                        #reply_with_generic_template(sender_id, [element])
-                        game(sender_id)
+                        image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
+                        element = create_generic_template_element("Hello", image, message_text)
+                        reply_with_generic_template(sender_id, [element])
+
                         #do_rules(sender_id, message_text)
-
-                elif "postback" in messaging_event:
-                    print("postback was recognized")
-                    received_postback(messaging_event);
-
 
     return "ok", 200
 
 
-#####################################Rock paper scissors#############################################
-chand = ""
-rnumber =randint(0,8)
-
-def define():
-	global chand
-	global rnumber
-	rnumber =randint(0,8)
-	if rnumber <3:
-		chand = "Rock"
-	elif rnumber >2 and rnumber <6:
-		chand = "Scissors"
-	else:
-		chand = "Paper"
-
-def game(recipient_id):
-	while True:
-		define()
-		reply_with_text(recipient_id, "Which hand do you want to play- Rock, Paper, Scissors, Lizard, Spock")
-		input = raw_input()
-		if input == chand:
-			reply_with_text(recipient_id,  "You both had %s" % (input))
-		elif input != "Scissors" and input != "Paper" and input != "Rock":
-			reply_with_text(recipient_id,  "How you gonna beat %s with \"%s\"" % (chand, input))
-			reply_with_text(recipient_id,  "Try again:")
-		else:
-			if chand == "Scissors" and input == "Rock":
-				reply_with_text(recipient_id,  "Rock crushes Scissors!")
-				reply_with_text(recipient_id,  "You win")
-			elif chand == "Scissors" and input == "Paper":
-				reply_with_text(recipient_id,  "Scissors cut Paper!")
-				reply_with_text(recipient_id,  "You lost")
-			elif chand == "Rock" and input == "Paper":
-				reply_with_text(recipient_id,  "Paper covers Rock!")
-				reply_with_text(recipient_id,  "you win")
-			elif chand == "Rock" and input == "Scissors":
-				reply_with_text(recipient_id,  "Rock crushes Scissors!")
-				reply_with_text(recipient_id,  "you lose")
-			elif chand == "Paper" and input == "Scissors":
-				reply_with_text(recipient_id,  "Scissors cut Paper!")
-				reply_with_text(recipient_id,  "You lose")
-			elif chand == "Paper" and input == "Rock":
-				reply_with_text(recipient_id,  "Paper covers Rock!")
-				reply_with_text(recipient_id,  "You lose")
-			else:
-				reply_with_text(recipient_id,  "Dont try to cheat please")
-
-game()
-#####################################Rock paper scissors#############################################
 # helper functions
-
-def received_postback(event):
-    global index
-    sender_id = event['sender']['id']
-    payload = event['postback']['payload']
-    pp.pprint(payload)
-    """
-    print("received_postback achieved")
-    if 'ANSWER_' in payload:
-        pp.pprint('ANSWER_')
-        process_answer(sender_id, payload[payload.find('_') + 1:])
-    elif 'NEXT_QUOTE' in payload:
-        pp.pprint('NEXT_QUOTE')
-        send_quote(sender_id, QUOTES[index])
-        if(index < len(QUOTES)-1):
-            index += 1 # == index = index + 1
-        else:
-            index = 0
-    """
-    elif 'GETTING_STARTED' in payload:
-        pp.pprint('GETTING_STARTED')
-        reply_with_text_and_button(sender_id, "Willkommen bei Facts & Fiction zur Bundespräsidentenwahl 2016 - Runde 2 :) Mal sehen, wie viele Zitate du richtig erkennst!", "Zitat schicken", "NEXT_QUOTE")
-        #send_quote(sender_id, pick_quote())
-        # suggest_topics(sender_id)
-        # send_introduction
 
 def get_url(url):
     result = requests.get(url)
@@ -217,3 +153,5 @@ def create_generic_template_element(title, image_url, subtitle):
 
 if __name__ == '__main__':
     app.run(debug=True)
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help

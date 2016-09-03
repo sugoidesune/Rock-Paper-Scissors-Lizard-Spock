@@ -1,19 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @sugoidesune
- Watch 5
-  Unstar 2
-  Fork 14 moccadroid/hello_bot
- Code  Issues 1  Pull requests 0  Wiki  Pulse  Graphs
-Branch: heroku Find file Copy pathhello_bot/main.py
-5c9e2ae  25 days ago
-@allanberger allanberger refact(image-reply): update variable name
-2 contributors @allanberger @moccadroid
-RawBlameHistory     140 lines (97 sloc)  3.4 KB
 # -*- coding: utf-8 -*-
 import json, urllib
 from flask import Flask, request, abort
@@ -153,5 +137,3 @@ def create_generic_template_element(title, image_url, subtitle):
 
 if __name__ == '__main__':
     app.run(debug=True)
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help

@@ -47,7 +47,7 @@ def post_webhook():
 
                         # Iterate through each entry in the results
                         for entry in result["features"]:
-                            entry = create_generic_template_element(feature["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
+                            entry = create_generic_template_element(entry["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
                             # Add each wifi router to the list we've created above
                             entries.append(entry)
 

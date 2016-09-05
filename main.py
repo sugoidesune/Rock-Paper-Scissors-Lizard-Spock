@@ -39,7 +39,6 @@ def post_webhook():
                         # basic level
                         if message_text == "wifi":
                             # Fetch the data from Wiener Linien's API
-                            reply_with_text(sender_id, "hi how are you doing?")
                             result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
                             # Create a list which we'll use for collecting the wifi router results
@@ -55,6 +54,8 @@ def post_webhook():
                             reply_with_generic_template(sender_id, entries)
 
                             # After we've sent the message with the generic template we stop the code
+                        elif message_text == "hi":
+                            reply_with_text(sender_id, "hi how are you doing?")
                         return "ok", 200
 
                         #else:

@@ -26,7 +26,7 @@ def get_webhook():
 @app.route('/webhook', methods=['POST'])
 def post_webhook():
     data = request.json
-
+    reply_with_text(sender_id, "this is after data request")
     if data["object"] == "page":
         for entry in data['entry']:
             for messaging_event in entry['messaging']:
@@ -38,23 +38,23 @@ def post_webhook():
                     if 'text' in messaging_event['message']:
                         # basic level
                         if message_text == "wifi":
-                        # Fetch the data from Wiener Linien's API
-                        reply_with_text(sender_id, "hi how are you doing?")
-                        result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
+                            # Fetch the data from Wiener Linien's API
+                            reply_with_text(sender_id, "hi how are you doing?")
+                            result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
-                        # Create a list which we'll use for collecting the wifi router results
-                        entries = []
+                            # Create a list which we'll use for collecting the wifi router results
+                            entries = []
 
-                        # Iterate through each entry in the results
-                        for entry in result["features"]:
-                            entry = create_generic_template_element(entry["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
+                            # Iterate through each entry in the results
+                            for entry in result["features"]:
+                                entry = create_generic_template_element(entry["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
+                                # Add each wifi router to the list we've created above
+                                entries.append(entry)
+
                             # Add each wifi router to the list we've created above
-                            entries.append(entry)
+                            reply_with_generic_template(sender_id, entries)
 
-                        # Add each wifi router to the list we've created above
-                        reply_with_generic_template(sender_id, entries)
-
-                        # After we've sent the message with the generic template we stop the code
+                            # After we've sent the message with the generic template we stop the code
                         return "ok", 200
 
                         #else:

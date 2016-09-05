@@ -37,31 +37,30 @@ def post_webhook():
 
                     if 'text' in messaging_event['message']:
                         # basic level
-                        if message_text == "wifi":
-                            # Fetch the data from Wiener Linien's API
-                            result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
+                        #if message_text == "wifi":
+                        # Fetch the data from Wiener Linien's API
+                        result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
-                            # Create a list which we'll use for collecting the wifi router results
-                            entries = []
+                        # Create a list which we'll use for collecting the wifi router results
+                        entries = []
 
-                            # Iterate through each entry in the results
-                            for entry in result["features"]:
-                                entry = create_generic_template_element(feature["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
-
-                                # Add each wifi router to the list we've created above
-                                entries.append(entry)
-
+                        # Iterate through each entry in the results
+                        for entry in result["features"]:
+                            entry = create_generic_template_element(feature["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
                             # Add each wifi router to the list we've created above
-                            reply_with_generic_template(sender_id, entries)
+                            entries.append(entry)
 
-                            # After we've sent the message with the generic template we stop the code
-                            return "ok", 200
+                        # Add each wifi router to the list we've created above
+                        reply_with_generic_template(sender_id, entries)
 
-                        else:
-                            message_text = messaging_event['message']['text']
-                            image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
-                            element = create_generic_template_element("Hello", image, message_text)
-                            reply_with_generic_template(sender_id, [element])
+                        # After we've sent the message with the generic template we stop the code
+                        return "ok", 200
+
+                        #else:
+                            #message_text = messaging_event['message']['text']
+                            #image = "http://cdn.shopify.com/s/files/1/0080/8372/products/tattly_jen_mussari_hello_script_web_design_01_grande.jpg"
+                            #element = create_generic_template_element("Hello", image, message_text)
+                            #reply_with_generic_template(sender_id, [element])
 
 
                         #do_rules(sender_id, message_text)

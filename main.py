@@ -35,6 +35,7 @@ def post_webhook():
                     sender_id = messaging_event['sender']['id']
 
                     if 'text' in messaging_event['message']:
+                        message_text = messaging_event['message']['text']
                         # basic level
                         if message_text == "wifi":
                             # Fetch the data from Wiener Linien's API

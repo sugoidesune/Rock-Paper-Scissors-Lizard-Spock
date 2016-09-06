@@ -45,10 +45,8 @@ def post_webhook():
                             reply_with_text(sender_id, "Heres the json file forya")
                             reply_with_text(sender_id, str(data))
                 elif "postback" in messaging_event:
+                    reply_with_text(sender_id, "looks like we got a postback")
                     print("postback was recognized")
-                    if 'GREETINGS_MY_FRIEND' in messaging_event:
-                        print("greetings was not found")
-                        reply_with_text(sender_id, "Welcome to the Rock Paper Scissors Lizard Spock Bot!")
                     #print("postback was recognized")
                     #received_postback(messaging_event);
                     return "ok", 200
@@ -86,10 +84,12 @@ def isitgoodbye(text):
 			return True
 
 def received_postback(messaging_event):
-    #global index
-    #sender_id = event['sender']['id']
-    #payload = event['postback']['payload']
-    #pp.pprint(payload)
+    sender_id = event['sender']['id']
+    reply_with_text(sender_id, "this is the sender id %s" %sender_id)
+    payload = event['postback']['payload']
+    reply_with_text(sender_id, "this is the payload %s" %payload)
+    pp.pprint(payload)
+    reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)
     print("received_postback achieved")
     """
     if 'ANSWER_' in payload:
@@ -103,8 +103,8 @@ def received_postback(messaging_event):
         else:
             index = 0
     """
-    if 'GREETINGS_MY_FRIEND' in messaging_event:
-        pp.pprint('GREETINGS_MY_FRIEND')
+    if 'GREETINGS_MY_FRIEND' in payload:
+        #pp.pprint('GREETINGS_MY_FRIEND')
         reply_with_text(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
 
 # helper functions

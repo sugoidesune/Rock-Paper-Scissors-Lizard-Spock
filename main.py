@@ -36,8 +36,10 @@ def post_webhook():
 
                     if 'text' in messaging_event['message']:
                         message_text = messaging_event['message']['text']
-                        if message_text.lower() in ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza",):
+                        if isitgreeting(message_text):
                             reply_with_text(sender_id, "Hi there. Let's Play Rock Paper Scissors Lizard Spock!")
+                        elif isitgoodbye(message_text):
+                            reply_with_text(sender_id, "Oh... Sorry to see you go, see ya!")
 
                 elif "postback" in messaging_event:
                     print("postback was recognized")
@@ -46,6 +48,37 @@ def post_webhook():
 
     return "ok", 200
 
+
+"""
+def blabla():
+	while True:
+		text=str(raw_input("type abc please"))
+		if isitgreeting(text):
+			print "hell yeah thats a greeting"
+
+
+def isitgreeting(text):
+	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza",)
+	for all_the_entries in mylist:
+		#print s
+		if text.lower() in all_the_entries.lower():
+			return True
+			#print all_the_entries
+blabla()
+"""
+def isitgreeting(text):
+	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza", "whatsup", "lets go", "start")
+	for all_the_entries in mylist:
+		#print s
+		if text.lower() in all_the_entries.lower():
+			return True
+
+def isitgoodbye(text):
+	mylist = ("Stop", "Unsubscribe", "Cancel", "Fuck off", "Fuck you", "Goodbye", "bye", "STFU", "go away", "no more", "no")
+	for all_the_entries in mylist:
+		#print s
+		if text.lower() in all_the_entries.lower():
+			return True
 
 def received_postback(event):
     global index
@@ -65,9 +98,9 @@ def received_postback(event):
         else:
             index = 0
     """
-    if 'GETTING_STARTED' in payload:
-        pp.pprint('GETTING_STARTED')
-        reply_with_text_and_button(sender_id, "No hi there. Let's Play Rock Paper Scissors Lizard Spock!")
+    if 'GREETINGS_MY_FRIEND' in payload:
+        pp.pprint('GREETINGS_MY_FRIEND')
+        reply_with_text_and_button(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
 
 # helper functions
 

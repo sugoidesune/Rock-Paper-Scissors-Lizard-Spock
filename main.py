@@ -92,6 +92,9 @@ def received_postback(messaging_event):
     pp.pprint(payload)
     reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)###########
     print("received_postback achieved")
+    if 'GREETINGS_MY_FRIEND' in payload:
+        #pp.pprint('GREETINGS_MY_FRIEND')
+        reply_with_text(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
     """
     if 'ANSWER_' in payload:
         pp.pprint('ANSWER_')
@@ -104,10 +107,6 @@ def received_postback(messaging_event):
         else:
             index = 0
     """
-    if 'GREETINGS_MY_FRIEND' in payload:
-        #pp.pprint('GREETINGS_MY_FRIEND')
-        reply_with_text(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
-
 # helper functions
 
 def get_url(url):

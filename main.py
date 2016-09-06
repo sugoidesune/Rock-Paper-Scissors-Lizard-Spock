@@ -41,7 +41,9 @@ def post_webhook():
                             reply_with_text(sender_id, "Hi there. Let's Play Rock Paper Scissors Lizard Spock!")
                         elif isitgoodbye(message_text):
                             reply_with_text(sender_id, "Oh... Sorry to see you go, see ya!")
-
+                        elif message_text == "json":
+                            reply_with_text(sender_id, "Heres the json file forya")
+                            reply_with_text(sender_id, data)
                 elif "postback" in messaging_event:
                     print("postback was recognized")
                     received_postback(messaging_event);

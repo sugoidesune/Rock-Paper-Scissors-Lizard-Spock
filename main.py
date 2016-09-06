@@ -48,7 +48,7 @@ def post_webhook():
                     reply_with_text(sender_id, "looks like we got a postback")
                     print("postback was recognized")
                     #print("postback was recognized")
-                    #received_postback(messaging_event);
+                    received_postback(messaging_event);
                     return "ok", 200
 
     return "ok", 200

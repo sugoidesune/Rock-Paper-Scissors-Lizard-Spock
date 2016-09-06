@@ -89,7 +89,7 @@ def received_postback(messaging_event):
     reply_with_text(sender_id, "this is the sender id %s" %sender_id)#############
     payload = messaging_event['postback']['payload']
     reply_with_text(sender_id, "this is the payload %s" %payload)###########
-    pp.pprint(payload)
+    #pp.pprint(payload)
     reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)###########
     print("received_postback achieved")
     if 'GREETINGS_MY_FRIEND' in payload:

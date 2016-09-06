@@ -26,6 +26,7 @@ def get_webhook():
 @app.route('/webhook', methods=['POST'])
 def post_webhook():
     data = request.json
+    print data
     if data["object"] == "page":
         for entry in data['entry']:
             for messaging_event in entry['messaging']:

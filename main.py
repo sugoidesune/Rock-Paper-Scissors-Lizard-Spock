@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 access_token = 'EAAZALe3ScA2UBAKjOy5jFxJlmeYrj6ZCGU0Mvm2Q4xMbWSNN7hOZAqZByC6ZBIocowPaBwcMRsxI7e1HqkkNtayg7VtAmUdsvZARhW5sY0bry6pZATWEui4ZBSHVXpmaqGN6cotZC0TZCVhZAXuo6WE8N03J1YSy4COEkdPaMJu6PajtgZDZD'
 
+pp = pprint.PrettyPrinter(indent=2)
 
 @app.route("/", methods=["GET"])
 def root():
@@ -86,10 +87,10 @@ def isitgoodbye(text):
 
 def received_postback(messaging_event):
     sender_id = messaging_event['sender']['id']
-    reply_with_text(sender_id, "this is the sender id %s" %sender_id)#############
+    #reply_with_text(sender_id, "this is the sender id %s" %sender_id)#############
     payload = messaging_event['postback']['payload']
-    reply_with_text(sender_id, "this is the payload %s" %payload)###########
-    #pp.pprint(payload)
+    #reply_with_text(sender_id, "this is the payload %s" %payload)###########
+    pp.pprint(payload)
     reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)###########
     print("received_postback achieved")
     if 'GREETINGS_MY_FRIEND' in payload:

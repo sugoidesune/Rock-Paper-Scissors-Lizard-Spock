@@ -69,14 +69,12 @@ blabla()
 def isitgreeting(text):
 	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza", "whatsup", "lets go", "start")
 	for all_the_entries in mylist:
-		#print s
 		if text.lower() in all_the_entries.lower():
 			return True
 
 def isitgoodbye(text):
 	mylist = ("Stop", "Unsubscribe", "Cancel", "Fuck off", "Fuck you", "Goodbye", "bye", "STFU", "go away", "no more", "no")
 	for all_the_entries in mylist:
-		#print s
 		if text.lower() in all_the_entries.lower():
 			return True
 
@@ -100,7 +98,7 @@ def received_postback(event):
     """
     if 'GREETINGS_MY_FRIEND' in payload:
         pp.pprint('GREETINGS_MY_FRIEND')
-        reply_with_text_and_button(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
+        reply_with_text(sender_id, "Let's Play Rock Paper Scissors Lizard Spock!")
 
 # helper functions
 

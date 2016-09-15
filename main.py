@@ -92,6 +92,7 @@ def isitgoodbye(text):
 			return True
 
 players_chosen_hand = ""
+
 def isitanswer(pick): #pick = user input
 	level = 0
 	for possible_hands in hands:
@@ -99,12 +100,12 @@ def isitanswer(pick): #pick = user input
 		percentage = round(similarity.ratio(), 3)
 		probability_dict[level] = [percentage, possible_hands]
 		level += 1
-		most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
-	if float(most_probable[0][0]) < 0.51:
-            players_chosen_hand = most_probable[0][1]
-            return True
-        else:
-            return False
+        most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
+    if float(most_probable[0][0]) < 0.51:
+        players_chosen_hand = most_probable[0][1]
+        return True
+    else:
+        return False
 
 def received_postback(messaging_event):
     sender_id = messaging_event['sender']['id']

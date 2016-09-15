@@ -14,6 +14,26 @@ def root():
     return "Hello World!"
 
 
+#############NLP Fakery matching answers################
+hands = ["rock", "paper", "scissors", "lizard", "spock"] #possible answers
+probability_dict = [
+	[0.00, "rock"],
+	[0.00, "paper"],
+	[0.00, "scissors"],
+	[0.00, "lizard"],
+	[0.00, "spock"],
+]
+
+def define_pick(pick): #pick = user input
+	level = 0
+	for possible_hands in hands:
+		similarity = SequenceMatcher(lambda x: x == " ", pick.lower(), possible_hands)
+		percentage = round(similarity.ratio(), 3)
+		probability_dict[level] = [percentage, possible_hands]
+		level += 1
+		most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
+		return most_probable[0][1]
+
 # webhook for facebook to initialize the bot
 @app.route('/webhook', methods=['GET'])
 def get_webhook():
@@ -42,6 +62,8 @@ def post_webhook():
                             reply_with_text(sender_id, "Hi there. Let's Play Rock Paper Scissors Lizard Spock!")
                         elif isitgoodbye(message_text):
                             reply_with_text(sender_id, "Oh... Sorry to see you go, see ya!")
+                        elif define_pick(message_text):
+                            reply_with_text(sender_id, "Your hand is %s") %players_chosen_hand
                         elif message_text == "json":
                             reply_with_text(sender_id, "Heres the json file forya")
                             reply_with_text(sender_id, str(data))
@@ -56,25 +78,9 @@ def post_webhook():
     return "ok", 200
 
 
-"""
-def blabla():
-	while True:
-		text=str(raw_input("type abc please"))
-		if isitgreeting(text):
-			print "hell yeah thats a greeting"
-
 
 def isitgreeting(text):
-	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza",)
-	for all_the_entries in mylist:
-		#print s
-		if text.lower() in all_the_entries.lower():
-			return True
-			#print all_the_entries
-blabla()
-"""
-def isitgreeting(text):
-	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza", "whatsup", "lets go", "start")
+	mylist = ("hi", "hallo", "hello", "yo", "sup", "whats up", "what/'s up", "whazza", "whatsup", "lets go", "start", "begin", "play")
 	for all_the_entries in mylist:
 		if text.lower() in all_the_entries.lower():
 			return True
@@ -85,13 +91,28 @@ def isitgoodbye(text):
 		if text.lower() in all_the_entries.lower():
 			return True
 
+players_chosen_hand = ""
+def isitanswer(pick): #pick = user input
+	level = 0
+	for possible_hands in hands:
+		similarity = SequenceMatcher(lambda x: x == " ", pick.lower(), possible_hands)
+		percentage = round(similarity.ratio(), 3)
+		probability_dict[level] = [percentage, possible_hands]
+		level += 1
+		most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
+	if float(most_probable[0][0]) < 0.51:
+        players_chosen_hand = most_probable[0][1]
+        return True
+    else:
+        return False
+
 def received_postback(messaging_event):
     sender_id = messaging_event['sender']['id']
     #reply_with_text(sender_id, "this is the sender id %s" %sender_id)#############
     payload = messaging_event['postback']['payload']
     #reply_with_text(sender_id, "this is the payload %s" %payload)###########
     pp.pprint(payload)
-    reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)###########
+    #reply_with_text(sender_id, "this is the pp.printed payload %s" %payload)###########
     print("received_postback achieved")
     if 'GREETINGS_MY_FRIEND' in payload:
         #pp.pprint('GREETINGS_MY_FRIEND')

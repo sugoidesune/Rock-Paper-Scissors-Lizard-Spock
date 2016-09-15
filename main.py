@@ -101,10 +101,10 @@ def isitanswer(pick): #pick = user input
 		level += 1
 		most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
 	if float(most_probable[0][0]) < 0.51:
-        players_chosen_hand = most_probable[0][1]
-        return True
-    else:
-        return False
+            players_chosen_hand = most_probable[0][1]
+            return True
+        else:
+            return False
 
 def received_postback(messaging_event):
     sender_id = messaging_event['sender']['id']

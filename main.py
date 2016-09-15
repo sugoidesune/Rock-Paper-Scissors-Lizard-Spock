@@ -103,7 +103,7 @@ def isitanswer(pick): #pick = user input
         probability_dict[level] = [percentage, possible_hands]
         level += 1
     most_probable= sorted(probability_dict, key = lambda x: float(x[0]), reverse=True)
-    if float(most_probable[0][0]) < 0.51:
+    if float(most_probable[0][0]) > 0.51:
         players_chosen_hand = most_probable[0][1]
         return True
     else:

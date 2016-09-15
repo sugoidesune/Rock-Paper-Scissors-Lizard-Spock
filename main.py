@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, urllib
 from flask import Flask, request, abort
+from difflib import SequenceMatcher #NLP fakery
+from random import randint
 import requests, pprint
 
 app = Flask(__name__)

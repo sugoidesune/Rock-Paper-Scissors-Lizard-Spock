@@ -64,7 +64,7 @@ def post_webhook():
                             reply_with_text(sender_id, "Hi there. Let's Play Rock Paper Scissors Lizard Spock!")
                         elif isitgoodbye(message_text):
                             reply_with_text(sender_id, "Oh... Sorry to see you go, see ya!")
-                        elif define_pick(message_text):
+                        elif isitanswer(message_text):
                             reply_with_text(sender_id, "Your hand is %s") %players_chosen_hand
                         elif message_text == "json":
                             reply_with_text(sender_id, "Heres the json file forya")

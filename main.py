@@ -41,9 +41,13 @@ def post_webhook():
                     sender_id = messaging_event['sender']['id']
 
                     if 'text' in messaging_event['message']:
-                        message_text = messaging_event['message']['text']
-                        date= str(dateparser.parse(message_text))
-                        reply_with_text(sender_id, "http://tv.orf.at/program/orf1/"+re.sub("-","",date[:10]))
+                        if message_text == "hi":
+                            reply_with_text(sender_id, "hi im here")
+
+                        else:
+                            message_text = messaging_event['message']['text']
+                            date= str(dateparser.parse(message_text))
+                            reply_with_text(sender_id, "http://tv.orf.at/program/orf1/"+re.sub("-","",date[:10]))
 
 
 
@@ -72,7 +76,7 @@ def post_webhook():
                             # After we've sent the message with the generic template we stop the code
                         #elif message_text == "hi":
 
-                        return "ok", 200
+                        #return "ok", 200
 
                         #else:
                             #message_text = messaging_event['message']['text']

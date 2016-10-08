@@ -21,7 +21,7 @@ result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeatur
 #print result["features"][0]["type"]
 # the line above = go to list entry "features" go to the first entry in the dictionairy and print dictionary of "type"
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 #for things_in_that_json_file_from_the_website in json_file_from_the_website["features"]:
     #print things_in_that_json_file_from_the_website["properties"]["NAME"]
 

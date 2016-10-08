@@ -2,7 +2,8 @@
 import json, urllib
 from flask import Flask, request, abort
 import requests
-
+import dateparser
+import re
 
 
 
@@ -41,33 +42,36 @@ def post_webhook():
 
                     if 'text' in messaging_event['message']:
                         message_text = messaging_event['message']['text']
+                        date= str(dateparser.parse(message_text))
+                        reply_with_text(sender_id, "http://tv.orf.at/program/orf1/"+re.sub("-","",date[:10]))
+
+
+
+
+
                         # basic level
-                        if message_text == "wifi":
-                            print "in wifi"
+                        ##if message_text == "Time":
+                            ##print "in wifi"
                             # Fetch the data from Wiener Linien's API
-                            with open('programm.json') as data_file:
-                                global result
-                                result = json.load(data_file)
-                                reply_with_text(sender_id, "im in jsnon file")
-                                print "loaded jsnon"
+
                             #result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
                             # Create a list which we'll use for collecting the wifi router results
-                            entries = []
+                            #entries = []
 
                             # Iterate through each entry in the results
-                            for entry in result["broadcasts"]:
-                                print "in broadcasts"
-                                entry = create_generic_template_element(entry["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["subTitle"])
+                            #for entry in result["broadcasts"]:
+                                #print "in broadcasts"
+                                #entry = create_generic_template_element(entry["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["subTitle"])
                                 # Add each wifi router to the list we've created above
-                                entries.append(entry)
+                                #entries.append(entry)
 
                             # Add each wifi router to the list we've created above
-                            reply_with_generic_template(sender_id, entries)
-
+                            #reply_with_generic_template(sender_id, entries)
+                            #reply_with_text(sender_id, "hi how are you doing?")
                             # After we've sent the message with the generic template we stop the code
-                        elif message_text == "hi":
-                            reply_with_text(sender_id, "hi how are you doing?")
+                        #elif message_text == "hi":
+
                         return "ok", 200
 
                         #else:

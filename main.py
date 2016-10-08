@@ -16,7 +16,7 @@ result=""
 def root():
     return "Hello World!"
 
-
+#blub
 # webhook for facebook to initialize the bot
 @app.route('/webhook', methods=['GET'])
 def get_webhook():
@@ -53,8 +53,8 @@ def post_webhook():
                             entries = []
 
                             # Iterate through each entry in the results
-                            for entry in result["features"]:
-                                entry = create_generic_template_element(entry["broadcasts"]["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["broadcasts"]["subTitle"])
+                            for entry in result["broadcasts"]:
+                                entry = create_generic_template_element(entry["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["subTitle"])
                                 # Add each wifi router to the list we've created above
                                 entries.append(entry)
 

@@ -43,10 +43,13 @@ def post_webhook():
                         message_text = messaging_event['message']['text']
                         # basic level
                         if message_text == "wifi":
+                            print "in wifi"
                             # Fetch the data from Wiener Linien's API
                             with open('programm.json') as data_file:
                                 global result
                                 result = json.load(data_file)
+                                reply_with_text(sender_id, "im in jsnon file")
+                                print "loaded jsnon"
                             #result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
                             # Create a list which we'll use for collecting the wifi router results
@@ -54,6 +57,7 @@ def post_webhook():
 
                             # Iterate through each entry in the results
                             for entry in result["broadcasts"]:
+                                print "in broadcasts"
                                 entry = create_generic_template_element(entry["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["subTitle"])
                                 # Add each wifi router to the list we've created above
                                 entries.append(entry)

@@ -3,10 +3,14 @@ import json, urllib
 from flask import Flask, request, abort
 import requests
 
+
+
+
 app = Flask(__name__)
 
 access_token = 'EAAYPCWbw5mYBAIawH5B4azSURXsG1XwMqZCqtKDCVQfD3zZB0pdmBIxJH8rjPbxYl06NSGWudgKS0TxmzU5foyLjZABPtQy5E2AB5thv6vqMJ56RrcDjGZBVJi7DIGd1vh4Q3T8x54nBj2cttTuTlGOZCNrisqZB61Cy2xw97ZAtwZDZD'
 
+result=""
 
 @app.route("/", methods=["GET"])
 def root():
@@ -21,6 +25,7 @@ def get_webhook():
         abort(400)
 
     return request.args.get('hub.challenge')
+
 
 
 @app.route('/webhook', methods=['POST'])
@@ -39,14 +44,17 @@ def post_webhook():
                         # basic level
                         if message_text == "wifi":
                             # Fetch the data from Wiener Linien's API
-                            result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
+                            with open('programm.json') as data_file:
+                                global result
+                                result = json.load(data_file)
+                            #result = get_url("http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:WLANWRLOGD")
 
                             # Create a list which we'll use for collecting the wifi router results
                             entries = []
 
                             # Iterate through each entry in the results
                             for entry in result["features"]:
-                                entry = create_generic_template_element(entry["properties"]["NAME"], "http://blog.wienerlinien.at/wp-content/uploads/2016/04/header_wifi.jpg", entry["properties"]["ADRESSE"])
+                                entry = create_generic_template_element(entry["broadcasts"]["title"], "http://tvthek.orf.at/static/images/logo_orf_header.png", entry["broadcasts"]["subTitle"])
                                 # Add each wifi router to the list we've created above
                                 entries.append(entry)
 
